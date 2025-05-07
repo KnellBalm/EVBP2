@@ -28,8 +28,8 @@ def load_charger_list_from_db(engine):
             busi_id,
             sta_id,
             CASE 
-                WHEN chrgr_typ_cd IN ('02', '08') THEN 'slow'
-                ELSE 'fast'
+                WHEN chrgr_typ_cd IN ('02', '08') THEN 'S'
+                ELSE 'F'
             END AS chrgr_typ,
             COUNT(*) AS chrgr_cnt,
             STRING_AGG(chrgr_id, ',' ORDER BY chrgr_id) AS chrgr_list
@@ -39,8 +39,8 @@ def load_charger_list_from_db(engine):
             busi_id,
             sta_id,
             CASE 
-                WHEN chrgr_typ_cd IN ('02', '08') THEN 'slow'
-                ELSE 'fast'
+                WHEN chrgr_typ_cd IN ('02', '08') THEN 'S'
+                ELSE 'F'
             END
         ORDER BY 
             busi_id, sta_id, chrgr_typ;
@@ -81,7 +81,7 @@ def make_or_update_json(df, json_path):
 # 실행 함수
 def main(config_path, output_json_path):
     '''
-    run this module : python3 Make_Charger_list.py --config ./db_conn_conf.json --output ./charger_type_list.json
+    run this module : python3 Make_Charger_list.py --config ./db_conn_info.json --output ./charger_type_list.json
     '''
     with open(config_path, 'r', encoding='utf-8') as f:
         conn_info = json.load(f)
@@ -95,7 +95,7 @@ def main(config_path, output_json_path):
 # 명령행 인자 처리
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="PostgreSQL 데이터를 JSON으로 저장 또는 업데이트합니다.")
-    parser.add_argument("--config", type=str, default="./db_conn_conf.json", help="DB 연결 정보를 담은 JSON 파일 경로")
+    parser.add_argument("--config", type=str, default="./db_conn_info.json", help="DB 연결 정보를 담은 JSON 파일 경로")
     parser.add_argument("--output", type=str, default="./ev_charge_station_info.json", help="출력할 JSON 파일 경로")
 
     args = parser.parse_args()
