@@ -65,7 +65,7 @@ def run_model(busi_id=None,sta_id=None, chrgr_typ=None, month=None, n_trials=50,
     return forecast, predict_result # 예측 결과 반환 
     logger.info("========= Finish Predict =========")
     
-if __name__ == "__main__": 
+if __name__ == "__main__":    
     logger.info("========= Predict Model Start =========")
     # ArgumentParser 객체 생성
     parser = argparse.ArgumentParser(description="예측모델 실행을 위한 스크립트") 

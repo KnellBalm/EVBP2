@@ -403,6 +403,7 @@ def make_predict_result_data(predict_result=None, busi_id=None, sta_id=None, cha
     result_df['STA_ID'] = sta_id
     result_df['CHARG_TYP'] = charger_type
     result_df['CHARG_HR'] = result_df['yhat']
+    result_df['CHARG_HR'] = result_df['CHARG_HR'].apply(lambda x: round(x, 4) if x >= 0 else 0) # 음수는 0으로, 양수는 소수점 4자리로 반올림
     result_df['REG_DT'] = datetime.datetime.now().strftime('%Y-%m-%d')
     result_df = result_df[['CRTR_YMD','CRTR_HR','BUSI_ID','STA_ID','CHARG_TYP','CHARG_HR','REG_DT']].reset_index(drop=True)
     return result_df
